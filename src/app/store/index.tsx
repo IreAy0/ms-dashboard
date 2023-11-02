@@ -106,11 +106,9 @@ function AppProvider({ children }: { children: ReactNode }) {
 
       const filtered:any[] =  transactions.filter((item: any) => {
       const { type, status } = item;
-      if (newA.includes(type) && newA.includes(status)) {
-        return newA.includes(type) && newA.includes(status)
-      }else {
-        return newA.includes(type) || newA.includes(status)
-      }
+      const typeExists = newA.includes(type);
+      const statusExists = newA.includes(status);
+        return typeExists && statusExists
       })
       setTransactions(filtered)
     } catch (error) {
