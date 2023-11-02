@@ -8,10 +8,19 @@ interface PropsInterface {
 }
 interface MyListboxProps {
   options: PropsInterface[];
+  selectedItems: PropsInterface[];
+  setSelectedItems: (items: PropsInterface[]) => void;
 }
 
-function MyListbox({ options }: MyListboxProps) {
-  const [selectedItems, setSelectedItems] = useState<PropsInterface[]>([options[0], options[1]]);
+function MyListbox({ options, selectedItems, setSelectedItems  }: MyListboxProps) {
+  // const [selectedItems, setSelectedItems] = useState<PropsInterface[]>([options[0], options[1]]);
+
+  const handleSelectionChange = (item: PropsInterface) => {
+    const updatedSelection = selectedItems.includes(item)
+      ? selectedItems.filter((selectedItem) => selectedItem !== item)
+      : [...selectedItems, item];
+    setSelectedItems(updatedSelection);
+  };
 
   return (
     <Listbox value={selectedItems}  onChange={setSelectedItems} multiple>
@@ -48,7 +57,7 @@ function MyListbox({ options }: MyListboxProps) {
                                 
                            
                       <span
-                        className={`block truncate ${
+                        className={`block truncate capitalize ${
                           selected ? 'font-medium' : 'font-normal'
                         }`}
                       >

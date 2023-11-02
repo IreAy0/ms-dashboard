@@ -1,13 +1,19 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { useAppContext } from "../store";
 import { Caret, CaretBlack } from "./icons";
 import Date from "./Inputs/Date";
 import Select from "./Inputs/Select";
 
+interface PropsInterface {
+  id: number;
+  name: string;
+}
+
 const types = [
   { id: 1, name: "Store Transactions" },
   { id: 2, name: "Get Tipped" },
-  { id: 3, name: "Withdrawals" },
+  { id: 3, name: "withdrawal" },
   { id: 4, name: "Chargebacks" },
   { id: 5, name: "Cashbacks" },
   { id: 6, name: "Refer and Earn" },
@@ -20,6 +26,12 @@ const status = [
 ];
 export default function FilterModal() {
   let [isOpen, setIsOpen] = useState(false);
+  const { filterTable } = useAppContext()
+  const [selectedItems, setSelectedItems] = useState<PropsInterface[]>([]);
+
+  const handleSelectedItemsChange = (items: PropsInterface[]) => {
+    setSelectedItems(items);
+  };
 
   function closeModal() {
     setIsOpen(false);
@@ -29,6 +41,16 @@ export default function FilterModal() {
     setIsOpen(true);
   }
 
+ const filter = () => {
+  filterTable(selectedItems)
+ }
+
+ const clear = () => {
+  setSelectedItems([])
+  filterTable([])
+  setIsOpen(false);
+ }
+ 
   return (
     <>
       <div className=" flex items-center justify-center">
@@ -117,22 +139,23 @@ export default function FilterModal() {
                         <p className="text-black-300 font-bold text-base">
                           Transaction Type
                         </p>
-                        <Select options={types} />
+                        <Select selectedItems={selectedItems} setSelectedItems={handleSelectedItemsChange} options={types} />
                       </div>
 
                       <div className="mt-6">
                         <p className="text-black-300 font-bold text-base">
                           Transaction Status
                         </p>
-                        <Select options={status} />
+                        <Select selectedItems={selectedItems} setSelectedItems={handleSelectedItemsChange} options={status} />
                       </div>
                     </div>
                   </div>
                   <div className="flex justify-between py-5 px-[2px] mt-auto">
-                    <button className="border border-gray50 rounded-full w-[198px] px-6 py-3">
+                    <button onClick={() => clear()} className="border border-gray50 rounded-full w-[198px] px-6 py-3">
                       Clear
                     </button>
-                    <button className="bg-primary text-white border bg-gray50 border-gray50 rounded-full w-[198px] px-6 py-3">
+                    
+                    <button onClick={() => filter()}  className={`${selectedItems.length >= 1 ? 'bg-black-300 text white' : 'bg-gray50'}  text-white border  border-gray50 rounded-full w-[198px] px-6 py-3`}>
                       Apply
                     </button>
                   </div>

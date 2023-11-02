@@ -24,6 +24,7 @@ type WalletData = {
 interface appContextType {
   users: UserData ;
   getUserDetails: () => Promise<void>;
+  filterTable: (data: any) => Promise<void> ;
   transactions: [];
   wallet: WalletData;
 }
@@ -31,6 +32,7 @@ interface appContextType {
 const AppContext = createContext<appContextType>({
   users: {},
   getUserDetails: async () => {},
+  filterTable: (data: any) => { return data},
   transactions: [],
   wallet: {},
 });
@@ -90,6 +92,28 @@ function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const filterTable = async (data: any[]) => {
+    try {
+
+      if (data.length == 0) {
+        getTransactions()
+      }
+      let newA: string[] = []
+      
+      const filterValues = data.map((obj) => newA.push(obj.name.toLowerCase()));
+
+      const filtered: any[] =  transactions.filter((item: any) => {
+        const { type, status } = item;
+        const bothIncluded = newA.includes(type.toLowerCase()) && newA.includes(status.toLowerCase());
+        return bothIncluded
+      })
+
+      setTransactions(filtered)
+    } catch (error) {
+      
+    }
+  }
+
   useEffect(() => {
     getUserDetails();
     getWallet();
@@ -102,6 +126,7 @@ function AppProvider({ children }: { children: ReactNode }) {
     wallet,
     transactions,
     getUserDetails,
+    filterTable
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

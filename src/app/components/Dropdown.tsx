@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, JSX, SVGProps, useEffect, useRef, useState } from 'react'
 import { Apps, Caret, CaretRight, Invocing, Link, Media, Store } from './icons'
 
-export default function Example() {
+export default function Dropdown() {
   return (
     <div className=" text-right">
       <Menu as="div" className="relative inline-block text-left">

@@ -6,6 +6,7 @@ import { ArrowDown, ArrowUp, Exports } from "../icons";
 function Table() {
   const { transactions } = useAppContext();
 
+  console.log('transactions', transactions)
   return (
     <div className="pt-20 container px-0 flex flex-col items-center justify-center w-full mx-auto transaction_table">
       <div className=" py-5 w-full flex border-b border-gray50 justify-between">
