@@ -12,7 +12,9 @@ export default function Example() {
     
 
 <Menu.Button as='div' className={`${open ? 'divide-x divide-gray-400 bg-black-300 text-white  ' : 'nav_link'} flex items-center flex-nowrap rounded-full `}>
-    <button type="button" className="flex gap-1 items-center w-full  py-2 px-3  text-base font-medium rounded-full bg-transparent hover:bg-gray50 transition-all duration-700 cursor-pointer ">
+    <button 
+    type="button" 
+    className={`${!open ? 'hover:bg-gray50' : ''} flex gap-1 items-center w-full  py-2 px-3  text-base font-medium rounded-full bg-transparent  transition-all duration-700 cursor-pointer `}>
         <Apps />
         Apps
     </button>
