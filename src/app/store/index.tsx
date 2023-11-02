@@ -106,7 +106,6 @@ function AppProvider({ children }: { children: ReactNode }) {
 
       const filtered:any[] =  transactions.filter((item: any) => {
       const { type, status } = item;
-      const eitherIncluded = newA.includes(type)   ;
       if (newA.includes(type) && newA.includes(status)) {
         return newA.includes(type) && newA.includes(status)
       }else {
