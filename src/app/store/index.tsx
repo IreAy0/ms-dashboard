@@ -106,7 +106,7 @@ function AppProvider({ children }: { children: ReactNode }) {
       const holdData = transactions
       const filtered:any[] =  memoizedData.filter((item: any) => {
         const { type, status } = item;
-        const bothIncluded = newA.includes(type.toLowerCase()) && newA.includes(status.toLowerCase());
+        const bothIncluded = newA.includes(type.toLowerCase()) || newA.includes(status.toLowerCase());
         return bothIncluded
       })
 

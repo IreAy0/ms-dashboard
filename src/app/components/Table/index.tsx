@@ -1,4 +1,5 @@
 import { useAppContext } from "@/app/store";
+import { formatDate } from "@/app/utils/helpers";
 import React from "react";
 import FilterModal from "../FilterModal";
 import { ArrowDown, ArrowUp, Exports } from "../icons";
@@ -79,7 +80,8 @@ function Table() {
                 <p className="font-degular-bold text-black-300 text-base font-bold">{`USD ${transaction?.amount}`}</p>
                 <p className="text-sm pt-2 text-gray-400 ">
                   {" "}
-                  {transaction?.date}
+                  {formatDate(transaction?.date)}
+                  
                 </p>
               </div>
             </div>
