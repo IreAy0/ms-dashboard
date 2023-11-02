@@ -73,7 +73,6 @@ function AppProvider({ children }: { children: ReactNode }) {
   };
   const getTransactions = async () => {
     try {
-      // Your implementation for getUserDetails function
       const response = await fetch(
         `https://fe-task-api.mainstack.io/transactions`
       );
