@@ -159,7 +159,7 @@ export default function FilterModal() {
                       Clear
                     </button>
                     
-                    <button onClick={() => filter()}  className={`${selectedItems.length >= 1 ? 'bg-black-300 text white' : 'bg-gray50'}  text-white border  border-gray50 rounded-full w-[198px] px-6 py-3`}>
+                    <button onClick={() => filter()}  className={`${selectedItems.length >= 1 || selectedStatus.length >= 1 ? 'bg-black-300 text white' : 'bg-gray50'}  text-white border  border-gray50 rounded-full w-[198px] px-6 py-3`}>
                       Apply
                     </button>
                   </div>

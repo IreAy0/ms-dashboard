@@ -103,15 +103,16 @@ function AppProvider({ children }: { children: ReactNode }) {
       let newA: string[] = []
       
       const filterValues = data.map((obj) => newA.push(obj.name.toLowerCase()));
-      const holdData = transactions
-      const filtered:any[] =  memoizedData.filter((item: any) => {
-        const { type, status } = item;
-        const bothIncluded = newA.includes(type.toLowerCase()) || newA.includes(status.toLowerCase());
-        return bothIncluded
+
+      const filtered:any[] =  transactions.filter((item: any) => {
+      const { type, status } = item;
+      const eitherIncluded = newA.includes(type)   ;
+      if (newA.includes(type) && newA.includes(status)) {
+        return newA.includes(type) && newA.includes(status)
+      }else {
+        return newA.includes(type) || newA.includes(status)
+      }
       })
-
-      console.log('memoizedData', memoizedData, filtered)
-
       setTransactions(filtered)
     } catch (error) {
       
