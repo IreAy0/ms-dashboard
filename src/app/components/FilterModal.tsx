@@ -28,11 +28,14 @@ export default function FilterModal() {
   let [isOpen, setIsOpen] = useState(false);
   const { filterTable } = useAppContext()
   const [selectedItems, setSelectedItems] = useState<PropsInterface[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<PropsInterface[]>([])
 
   const handleSelectedItemsChange = (items: PropsInterface[]) => {
     setSelectedItems(items);
   };
-
+  const handleSelectedStatusChange = (items: PropsInterface[]) => {
+    setSelectedStatus(items);
+  };
   function closeModal() {
     setIsOpen(false);
   }
@@ -42,11 +45,12 @@ export default function FilterModal() {
   }
 
  const filter = () => {
-  filterTable(selectedItems)
+  filterTable([...selectedItems, ...selectedStatus])
  }
 
  const clear = () => {
   setSelectedItems([])
+  setSelectedStatus([])
   filterTable([])
   setIsOpen(false);
  }
@@ -146,7 +150,7 @@ export default function FilterModal() {
                         <p className="text-black-300 font-bold text-base">
                           Transaction Status
                         </p>
-                        <Select selectedItems={selectedItems} setSelectedItems={handleSelectedItemsChange} options={status} />
+                        <Select selectedItems={selectedStatus} setSelectedItems={handleSelectedStatusChange} options={status} />
                       </div>
                     </div>
                   </div>
