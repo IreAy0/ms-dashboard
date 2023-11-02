@@ -37,7 +37,7 @@ const TestComponent = () => {
   return (
     <div>
       <div data-testid="email">{users.email}</div>
-      <div data-testid="balance">{wallet.balance}</div>
+      <div data-testid="balance">{wallet?.balance}</div>
     </div>
   );
 };

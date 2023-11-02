@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
   ReactNode,
+  useMemo,
 } from "react";
 
 interface UserData {
@@ -25,7 +26,7 @@ interface appContextType {
   users: UserData ;
   getUserDetails: () => Promise<void>;
   filterTable: (data: any) => Promise<void> ;
-  transactions: [];
+  transactions: any[];
   wallet: WalletData;
 }
 
@@ -40,7 +41,8 @@ const AppContext = createContext<appContextType>({
 function AppProvider({ children }: { children: ReactNode }) {
   const [users, setUsers] = useState<UserData>({});
   const [wallet, setWallet] = useState<WalletData>({});
-  const [transactions, setTransactions] = useState<[]>([]);
+  const [transactions, setTransactions] = useState<any[]>([]);
+  const memoizedData = useMemo(() => transactions, [transactions]);
 
   const getUserDetails = async () => {
     try {
@@ -101,12 +103,14 @@ function AppProvider({ children }: { children: ReactNode }) {
       let newA: string[] = []
       
       const filterValues = data.map((obj) => newA.push(obj.name.toLowerCase()));
-
-      const filtered: any[] =  transactions.filter((item: any) => {
+      const holdData = transactions
+      const filtered:any[] =  memoizedData.filter((item: any) => {
         const { type, status } = item;
         const bothIncluded = newA.includes(type.toLowerCase()) && newA.includes(status.toLowerCase());
         return bothIncluded
       })
+
+      console.log('memoizedData', memoizedData, filtered)
 
       setTransactions(filtered)
     } catch (error) {
