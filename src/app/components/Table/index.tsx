@@ -2,10 +2,14 @@ import { useAppContext } from "@/app/store";
 import React from "react";
 import FilterModal from "../FilterModal";
 import { ArrowDown, ArrowUp, Exports } from "../icons";
+import EmptyState from "./empty-table";
 
 function Table() {
-  const { transactions } = useAppContext();
+  const { transactions, filterTable } = useAppContext();
 
+  const clearFilter = () => {
+    filterTable([])
+  }
   console.log('transactions', transactions)
   return (
     <div className="pt-20 container px-0 flex flex-col items-center justify-center w-full mx-auto transaction_table">
@@ -28,6 +32,7 @@ function Table() {
           </button>
         </div>
       </div>
+      {transactions.length == 0 && <EmptyState onClick={clearFilter} />}
       <ul className="flex pt-6 gap-6 flex-col w-full">
         {transactions.map((transaction: any, index) => (
           <li key={index + 1} className="flex flex-row">
